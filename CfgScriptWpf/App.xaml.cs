@@ -1,4 +1,4 @@
-﻿using CfgScript.Views;
+﻿using CfgScriptWpf.Views;
 using Prism.Ioc;
 using Prism.Unity;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace CfgScript
+namespace CfgScriptWpf
 {
     /// <summary>
     /// Interaction logic for App.xaml

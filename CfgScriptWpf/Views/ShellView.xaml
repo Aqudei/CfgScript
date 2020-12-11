@@ -1,11 +1,11 @@
 ﻿<mah:MetroWindow  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                  x:Class="CfgScript.Views.ShellView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CfgScript.Views"
-        mc:Ignorable="d"
+                  x:Class="CfgScriptWpf.Views.ShellView"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:local="clr-namespace:CfgScriptWpf.Views"
+                    mc:Ignorable="d"
         Title="ShellView" Height="600" Width="800">
     <Grid Margin="8">
         <Grid.RowDefinitions>

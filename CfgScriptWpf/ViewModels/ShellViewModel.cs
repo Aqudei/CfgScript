@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-namespace CfgScript.ViewModels
+namespace CfgScriptWpf.ViewModels
 {
     class ShellViewModel : BindableBase
     {
@@ -62,11 +62,15 @@ namespace CfgScript.ViewModels
 
         private void SetDefaultFolder()
         {
-            var dlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
-            var result = dlg.ShowDialog();
-            if (result.HasValue && !string.IsNullOrWhiteSpace(dlg.SelectedPath))
+            var dlg = new Microsoft.WindowsAPICodePack.Dialogs.CommonOpenFileDialog
             {
-                DefaultFolder = dlg.SelectedPath;
+                IsFolderPicker = true
+            };
+
+            var result = dlg.ShowDialog();
+            if (result==Microsoft.WindowsAPICodePack.Dialogs.CommonFileDialogResult.Ok && !string.IsNullOrWhiteSpace(dlg.FileName))
+            {
+                DefaultFolder = dlg.FileName;
             }
         }
 
@@ -113,16 +117,20 @@ namespace CfgScript.ViewModels
 
         private void DoRun()
         {
+            Logs = "";
+            _replacements = 0;
+
             var files = Directory.EnumerateFiles(SearchFolder, "*-user.cfg", SearchOption.AllDirectories);
             foreach (var file in files)
             {
                 ProcessFile(file);
             }
-
+            Logs += $"Total Replacements: {_replacements}.";
             WriteLogs();
         }
 
         private DelegateCommand _openLogsCommand;
+        private int _replacements;
 
         public DelegateCommand OpenLogsCommand
         {
@@ -197,7 +205,11 @@ namespace CfgScript.ViewModels
                                 Logs += string.Format("For file {0}, {1} skipped because \"userId length is less than 5\"\n", file, label.Replace(".label", ""));
                                 continue;
                             }
-                            labelNode.Attributes[label].Value = authUserIdNode.Attributes[authUserId].Value.Substring(authUserIdNode.Attributes[authUserId].Value.Length - 5);
+                            if (!(labelNode.Attributes[label].Value == authUserIdNode.Attributes[authUserId].Value.Substring(authUserIdNode.Attributes[authUserId].Value.Length - 5)))
+                            {
+                                labelNode.Attributes[label].Value = authUserIdNode.Attributes[authUserId].Value.Substring(authUserIdNode.Attributes[authUserId].Value.Length - 5);
+                                _replacements += 1;
+                            }
                         }
                         else
                         {
